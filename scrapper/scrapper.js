@@ -9,13 +9,13 @@ const driver = await new Builder()
   .build();
 const actions = driver.actions({ async: true });
 
-const textClasses = ['body', 'title'];
-const buttonClasses = [];
-//const textClasses = [];
-const tagsToSearch = [];
-//const buttonClasses = ['linkButton'];
+//const textClasses = ['body', 'title'];
+//const buttonClasses = [];
+const textClasses = [];
+//const tagsToSearch = [];
+const buttonClasses = ['linkButton'];
 
-//const tagsToSearch = ['img'];
+const tagsToSearch = ['img'];
 //const tagsToSearch = ['img', 'a', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'p'];
 
 const builderElementType = 'pagepadding';
@@ -53,7 +53,7 @@ const textCssAttributes = [
   'text-decoration-line',
 ];
 
-const imageAttributes = ['src'];
+const imageAttributes = ['src', 'name', 'alt', 'width', 'height'];
 
 const linkAttributes = ['href'];
 
@@ -149,7 +149,6 @@ const getElementCssAttributes = async (element, elementTagName) => {
 };
 
 const buildElementObject = async (element) => {
-  console.log('element', element);
   const elementTagName = await getElementTagName(element);
 
   const elementCssAttributes = await getElementCssAttributes(
@@ -161,8 +160,7 @@ const buildElementObject = async (element) => {
     element,
     elementCssAttributes
   );
-  console.log('elementAttributes', elementAttributes);
-  return;
+
   return elementAttributes;
 };
 
@@ -228,21 +226,12 @@ const scrapUrl = async (url) => {
       }
     }
 
-    // const elementAttributes = await Promise.all(
-    //   Object.values(allElementsObject).map(
-    //     async (elements) =>
-    //       await Promise.all(
-    //         elements.map(async (element) => await buildElementObject(element))
-    //       )
-    //   )
-    // );
-
     const builderObject = getBuilderObject(
       url,
       componentCountMap,
       elementAttributes
     );
-    //console.log('builderObject', builderObject);
+
     console.log('scrapping complete..');
     return builderObject;
   } catch (error) {
