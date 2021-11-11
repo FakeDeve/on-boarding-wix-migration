@@ -1,9 +1,9 @@
 import { Builder, By, Key, until } from 'selenium-webdriver';
 import { sleep } from '../helpers.js';
+import { USER_ID, META_SITE_ID } from '../constants.js';
 import axios from 'axios';
 
-const builderUrl =
-  'https://editor.wix.com/html/editor/web/renderer/edit/cb65a734-e079-4ce7-9e02-3293dadea1e6?metaSiteId=8d508b47-711c-4f28-b08a-51b1b6022725&editorSessionId=d2b005bc-87b4-4d59-b96d-6605f42b8df3';
+const builderUrl = `https://editor.wix.com/html/editor/web/renderer/edit/${USER_ID}?metaSiteId=${META_SITE_ID}&editorSessionId=23887be5-0796-4c0f-ac2f-5c0489ed67de`;
 
 const cookies = [
   {
@@ -171,11 +171,11 @@ const build = async (builderScript, builderComponents) => {
   try {
     await login();
 
-    await sleep(5000);
+    await sleep(7000);
 
     await selectFrame();
 
-    await sleep(5000);
+    await sleep(7000);
 
     await executeScript(builderScript, builderComponents);
   } catch (error) {
@@ -188,7 +188,7 @@ const build = async (builderScript, builderComponents) => {
 const uploadImage = async (image) => {
   try {
     const { data } = await axios.post(
-      'https://bo.wix.com/site-migration-site-builder/uploadImages?userId=a09dceff-e613-41a3-8cd1-e1b185fb0844&metasiteId=8d508b47-711c-4f28-b08a-51b1b6022725',
+      `https://bo.wix.com/site-migration-site-builder/uploadImages?userId=${USER_ID}&metasiteId=${META_SITE_ID}`,
       [image],
       {
         headers: {

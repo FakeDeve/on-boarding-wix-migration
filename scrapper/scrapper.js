@@ -9,9 +9,9 @@ const driver = await new Builder()
   .build();
 const actions = driver.actions({ async: true });
 
-//const textClasses = ['body', 'title'];
+const textClasses = ['body', 'title'];
 //const buttonClasses = [];
-const textClasses = [];
+//const textClasses = [];
 //const tagsToSearch = [];
 const buttonClasses = ['linkButton'];
 
@@ -42,6 +42,7 @@ const nonTextCssAttributes = [
   'fontSize',
   'border',
 ];
+
 const textCssAttributes = [
   'color',
   'font-size',
@@ -92,9 +93,10 @@ const getElementAttributes = async (element, elementStyle) => {
     .join(';');
 
   const buildTextAttribute = async () => {
-    const childDomElements = (
-      await element.getAttribute('innerHTML')
-    ).replaceAll(/ class="[A-Za-z0-9]*"/g, '');
+    const childDomElements = (await element.getAttribute('innerHTML'))
+      .replaceAll(/ class="[A-Za-z0-9]*"/g, '')
+      .replaceAll(/<h[1-6]>/g, '')
+      .replaceAll(/<\/h[1-6]>/g, '');
 
     const domElement = `<${elementTagName} style="${textAttributeStyle}">${childDomElements}<${elementTagName}/>`;
     return domElement.replace(/\s\s+/g, ' ');
@@ -201,6 +203,7 @@ const scrapUrl = async (url) => {
       tagsToSearch,
       getElementsByTag
     );
+
     const textElementsObject = await getElementsObject(
       textClasses,
       getElementsByClassName
