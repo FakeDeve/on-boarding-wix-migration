@@ -1,5 +1,6 @@
 import { Builder, By, Key, until } from 'selenium-webdriver';
 import { sleep } from '../helpers.js';
+import axios from 'axios';
 
 const builderUrl =
   'https://editor.wix.com/html/editor/web/renderer/edit/cb65a734-e079-4ce7-9e02-3293dadea1e6?metaSiteId=8d508b47-711c-4f28-b08a-51b1b6022725&editorSessionId=d2b005bc-87b4-4d59-b96d-6605f42b8df3';
@@ -7,142 +8,45 @@ const builderUrl =
 const cookies = [
   {
     domain: '.wix.com',
-    expiry: 1636293786,
+    expiry: 1636633534,
+    httpOnly: false,
+    name: '_wixAB3|a1bc6756-ab98-410f-a099-302a3d39b41f',
+    path: '/',
+    secure: false,
+    value:
+      '130803#1|150438#4|175264#2|182661#2|185798#1|200674#4|205715#1|213671#2|225455#1|269779#1|275566#1|277909#2|281144#1|286464#1|287210#2|287454#2|289342#2|294268#1|296773#2|297192#2',
+  },
+  {
+    domain: '.wix.com',
+    expiry: 1636622727,
     httpOnly: false,
     name: '_wixAB3|6d33b2c3-c5f3-4b61-845f-c8cadab74bdc',
     path: '/',
     secure: false,
     value:
-      '97651#1|130803#1|150438#4|171893#2|175264#1|182661#2|185798#2|199602#1|200674#4|203287#2|205715#2|207438#1|218208#2|220536#1|225455#1|232564#1|233548#1|236860#1|239251#2|261000#1|261108#2|268709#1|269779#2|272282#1|275276#1|275281#1|275566#2|276744#2|277343#1|277449#2|277909#2|278984#2|280629#2|280816#2|281144#2|281218#2|283453#2|283806#1|284033#1|285029#2|285483#2|286064#1|286464#1|286488#2|287023#1|287039#2|287210#2|287817#2|289342#2|289793#1|289862#1|290052#2|290785#1|292338#2|292918#9|292971#1',
-  },
-  {
-    domain: 'editor.wix.com',
-    expiry: 1636279436,
-    httpOnly: false,
-    name: 'fedops.logger.defaultOverrides',
-    path: '/',
-    secure: false,
-    value:
-      '%7B%22paramsOverridesForApp%22%3A%7B%22restaurants-bm-my-orders.pages.index%22%3A%7B%22is_rollout%22%3Atrue%7D%2C%22restaurants-call-center%22%3A%7B%22is_rollout%22%3Atrue%7D%2C%22responsive-editor-migration%22%3A%7B%22is_rollout%22%3Atrue%7D%2C%22responsive-editor-common-infra%22%3A%7B%22is_rollout%22%3Atrue%7D%2C%22editorx-santa-editor-bridge%22%3A%7B%22is_rollout%22%3Atrue%7D%7D%7D',
+      '175264#1|296773#2|292918#9|287039#2|150438#4|295088#2|295988#1|286064#1|295818#1|276744#2|218208#2|285483#2|261000#1|236860#1|280816#2|283806#1|213671#2|281144#2|239251#2|284033#1|292338#2|272282#1|275276#1|171893#2|287210#2|277343#1|269779#2|294027#2|278984#2|97651#1|225455#1|287454#1|200674#4|290785#1|297106#1|185798#2|203287#2|289342#2|182661#2|233548#1|286464#1|275281#1|287023#1|297192#2|232564#1|207438#1|205715#2|275566#2|277909#2|280629#2|286488#2|290052#2|199602#1|293491#2|285029#2|130803#1',
   },
   {
     domain: '.wix.com',
-    expiry: 1699351374,
     httpOnly: false,
-    name: '_ga',
+    name: '_wix_browser_sess',
     path: '/',
     secure: false,
-    value: 'GA1.1.530188244.1636279332',
+    value: 'b8962c53-152c-41a8-a667-d25bd661077e',
   },
   {
     domain: '.wix.com',
-    expiry: 1636279974,
+    expiry: 1644395122,
     httpOnly: false,
-    name: '__utmt',
-    path: '/',
-    secure: false,
-    value: '1',
-  },
-  {
-    domain: '.wix.com',
-    expiry: 1652047374,
-    httpOnly: false,
-    name: '__utmz',
-    path: '/',
-    secure: false,
-    value:
-      '248670552.1636279374.1.1.utmcsr=users.wix.com|utmccn=(referral)|utmcmd=referral|utmcct=/',
-  },
-  {
-    domain: '.editor.wix.com',
-    expiry: 1636281185,
-    httpOnly: false,
-    name: 'bSession',
+    name: '_wixUIDX',
     path: '/',
     sameSite: 'None',
     secure: true,
-    value: 'f9c04f6b-50cb-4c3a-b85e-99b4227b7366|1',
+    value: '736042268|a1bc6756-ab98-410f-a099-302a3d39b41f',
   },
   {
     domain: '.wix.com',
-    httpOnly: false,
-    name: '__utmc',
-    path: '/',
-    secure: false,
-    value: '248670552',
-  },
-  {
-    domain: '.wix.com',
-    expiry: 1699351374,
-    httpOnly: false,
-    name: '__utma',
-    path: '/',
-    secure: false,
-    value: '248670552.530188244.1636279332.1636279374.1636279374.1',
-  },
-  {
-    domain: '.wix.com',
-    expiry: 1644055381,
-    httpOnly: false,
-    name: '_fbp',
-    path: '/',
-    sameSite: 'Lax',
-    secure: false,
-    value: 'fb.1.1636279335135.2131360559',
-  },
-  {
-    domain: '.wix.com',
-    expiry: 1642068171,
-    httpOnly: false,
-    name: 'wixClient',
-    path: '/',
-    sameSite: 'None',
-    secure: true,
-    value:
-      'danielmashukov||VERIFIED_OPT_IN|0|1636279371675|1642068171675|6d33b2c3-c5f3-4b61-845f-c8cadab74bdc|{}|wix',
-  },
-  {
-    domain: '.wix.com',
-    expiry: 1636279957,
-    httpOnly: false,
-    name: '_px3',
-    path: '/',
-    sameSite: 'Lax',
-    secure: false,
-    value:
-      '5e7b94eec7c8b3ebe2bba47d38806f37ffdeb9384bf1e42c4de4124fbbd278a0:QXpSCie2Rh9SGUcM6XTYGXwlJGIwGd/dAeKxitjVyrY1EkbUCyPOMpMYqDCWHBmfznrj2Dms/+ziJH4BxrwFug==:1000:hMqvR8dWd5Jqn+TwRCZt10cACRI0x7OQuOWgje/5jkfT3RXgoJSP49Qr4/upoodeEd3FAlf+1ivAyo8jPwmjZAnm/RA5c77ij531K+xqe4VgCCmhmhS6MtDucyO5yUXarAzUlYhg8XmaOJd5wWz2ubXVYWOjDJKLhQ1oGP3HPzIDhZ0QMgYxSJIpBtyKYsR9bryDBDYO4hZufNOqJUOzmg==',
-  },
-  {
-    domain: '.wix.com',
-    expiry: 1644055330,
-    httpOnly: false,
-    name: '_wixCIDX',
-    path: '/',
-    sameSite: 'None',
-    secure: true,
-    value: '5730346a-24b4-4fec-b205-50d0cc73f366',
-  },
-  {
-    domain: '.wix.com',
-    expiry: 1636365774,
-    httpOnly: false,
-    name: '_gid',
-    path: '/',
-    secure: false,
-    value: 'GA1.2.1038322860.1636279332',
-  },
-  {
-    domain: '.wix.com',
-    expiry: 1644055371,
-    httpOnly: false,
-    name: 'userType',
-    path: '/',
-    secure: false,
-    value: 'REGISTERED',
-  },
-  {
-    domain: '.wix.com',
-    expiry: 1793959371,
+    expiry: 1794299122,
     httpOnly: false,
     name: 'wixLanguage',
     path: '/',
@@ -152,30 +56,74 @@ const cookies = [
   },
   {
     domain: '.wix.com',
-    expiry: 1644055371,
+    expiry: 1644395122,
     httpOnly: false,
-    name: '_wixUIDX',
+    name: 'userType',
+    path: '/',
+    secure: false,
+    value: 'REGISTERED',
+  },
+  {
+    domain: '.wix.com',
+    expiry: 1642407922,
+    httpOnly: false,
+    name: 'wixClient',
     path: '/',
     sameSite: 'None',
     secure: true,
-    value: '379289189|6d33b2c3-c5f3-4b61-845f-c8cadab74bdc',
+    value:
+      'danielmashukov2||VERIFIED_OPT_IN|0|1636619122740|1642407922740|a1bc6756-ab98-410f-a099-302a3d39b41f|{}|wix',
   },
   {
     domain: '.wix.com',
+    expiry: 1636619673,
     httpOnly: false,
-    name: '_wix_browser_sess',
+    name: '_px3',
     path: '/',
+    sameSite: 'Lax',
     secure: false,
-    value: 'e019a154-6205-4f37-b5c0-7e91ef135456',
+    value:
+      'ad018707cfc5b35d58e121c41179c7fd2221efd5f35f6afaaf7c11b3a38fc0ff:7bNMQLjxuuIpuweLB4zCnIobVq2e1fnGEopyfB1HBmh7KpaOgEoxeRcNo+WUkFtXczjKFwXyI+liP/ZfsKjXsw==:1000:ikmdC2aCUAlFBw3NOKvqbujwyZPNkxa/TMFKdXrwoZVfDqSNWywqT54tbGn+6OgH9p91246oDXb3nxORGbsvcizvlubEjYWPHWoh1XL/OJfRVemp0dJz0xpaWX9QdRXBQq7b51TIOvSf4TJ5zF6i8NLzNn7FgxtV8yS2otpDXwfnXZJGSNw64P3Z0K/gKkLvv/ZytVlZzQTOdDdVlDxRZw==',
   },
   {
     domain: '.wix.com',
-    expiry: 1651831386,
+    expiry: 1642407922,
+    httpOnly: true,
+    name: 'wixSession2',
+    path: '/',
+    sameSite: 'None',
+    secure: true,
+    value:
+      'JWT.eyJraWQiOiJrdU42YlJQRCIsImFsZyI6IlJTMjU2In0.eyJkYXRhIjoie1widXNlckd1aWRcIjpcImExYmM2NzU2LWFiOTgtNDEwZi1hMDk5LTMwMmEzZDM5YjQxZlwiLFwidXNlck5hbWVcIjpcImRhbmllbG1hc2h1a292MlwiLFwiY29sb3JzXCI6e30sXCJ1Y2RcIjpcIjIwMjEtMTEtMTFUMDc6Mjk6MTguMDAwKzAwMDBcIixcInd4c1wiOnRydWUsXCJld3hkXCI6dHJ1ZSxcImFvclwiOnRydWUsXCJhY2lcIjpcImExYmM2NzU2LWFiOTgtNDEwZi1hMDk5LTMwMmEzZDM5YjQxZlwiLFwicm1iXCI6dHJ1ZSxcImx2bGRcIjpcIjIwMjEtMTEtMTFUMDg6MjU6MjIuNzIxKzAwMDBcIixcImxhdGhcIjpcIjIwMjEtMTEtMTFUMDg6MjU6MjIuNzIxKzAwMDBcIixcInd4ZXhwXCI6XCIyMDIxLTExLTI2VDA4OjI1OjIyLjczOCswMDAwXCJ9IiwiaWF0IjoxNjM2NjE5MTIyLCJleHAiOjE2Mzc5MTUxMjJ9.I98I_sKy2oYX-U_aOZyAHPsV_uOw84z9t_NQSGEVGQ35eWzxquXU2uiqDI-gajQek2ulg4xTgQsLmfNgezQfn1bBNh0jSsUJiYNKqta-jK0lwPbZ4g8ptzMq-ZjfwpGDcMzPbu2QFliQvyk3o2bq-c6XF_D-xh8Ph5mq0RzOIdCE3qDzMNrIuVyHNnHxdKI0P16ZnkKdnLxuu7MrmZTLOlLJM-BB3jcT4R6LTErLWo8WxoU4U1PH_0HLvRyRHa1t94EgXvsAZm4q6dbRNo-4Bu1k4_cqEUUeBT-cBNXlHXBZNzuD0k_daHjJ3-_HGgpMNWwQf8nrvjo7WkHfSdPXRg',
+  },
+  {
+    domain: '.wix.com',
+    expiry: 1668155067,
+    httpOnly: false,
+    name: '_pxvid',
+    path: '/',
+    sameSite: 'Lax',
+    secure: false,
+    value: 'c95d5dca-42c8-11ec-b8c1-6a4251414254',
+  },
+  {
+    domain: '.wix.com',
+    expiry: 1644395066,
+    httpOnly: false,
+    name: '_wixCIDX',
+    path: '/',
+    sameSite: 'None',
+    secure: true,
+    value: '5bd63401-8ef6-43aa-8591-b6dcbd0ca03c',
+  },
+  {
+    domain: '.wix.com',
+    expiry: 1652171134,
     httpOnly: false,
     name: '_wixAB3',
     path: '/',
     secure: false,
-    value: '290223#2|227997#2',
+    value: '290223#1',
   },
   {
     domain: '.wix.com',
@@ -184,46 +132,7 @@ const cookies = [
     path: '/',
     sameSite: 'None',
     secure: true,
-    value: '1636279328|QvYpF6z2sHOm',
-  },
-  {
-    domain: '.wix.com',
-    expiry: 1644055331,
-    httpOnly: false,
-    name: '_gcl_au',
-    path: '/',
-    secure: false,
-    value: '1.1.1678577581.1636279332',
-  },
-  {
-    domain: '.wix.com',
-    expiry: 1642068171,
-    httpOnly: true,
-    name: 'wixSession2',
-    path: '/',
-    sameSite: 'None',
-    secure: true,
-    value:
-      'JWT.eyJraWQiOiJrdU42YlJQRCIsImFsZyI6IlJTMjU2In0.eyJkYXRhIjoie1widXNlckd1aWRcIjpcIjZkMzNiMmMzLWM1ZjMtNGI2MS04NDVmLWM4Y2FkYWI3NGJkY1wiLFwidXNlck5hbWVcIjpcImRhbmllbG1hc2h1a292XCIsXCJjb2xvcnNcIjp7fSxcInVjZFwiOlwiMjAyMS0xMS0wMVQxMjozNToyNS4wMDArMDAwMFwiLFwid3hzXCI6ZmFsc2UsXCJld3hkXCI6ZmFsc2UsXCJhb3JcIjp0cnVlLFwiYWNpXCI6XCI2ZDMzYjJjMy1jNWYzLTRiNjEtODQ1Zi1jOGNhZGFiNzRiZGNcIixcInJtYlwiOnRydWUsXCJsdmxkXCI6XCIyMDIxLTExLTA3VDEwOjAyOjUxLjY1NiswMDAwXCIsXCJsYXRoXCI6XCIyMDIxLTExLTA3VDEwOjAyOjUxLjY1NiswMDAwXCIsXCJ3eGV4cFwiOlwiMjAyMS0xMS0yMlQxMDowMjo1MS42NzQrMDAwMFwifSIsImlhdCI6MTYzNjI3OTM3MSwiZXhwIjoxNjM3NTc1MzcxfQ.e_z-MUO_xW9sm0lewsjZZwxZwJHCCJATd-IMcz5Ip2wqzrHplOn9VMZeoUDVx9AFLbfhYZKhxb_p3DM8qkA9inEhFAAs_RVK1ULCW_CWTNGeeuLedHQpcJ-wFFLEvQ2JFuY48OOAhsYM5ZjjAvE-e24gDUSbQSfuuLt5buqsfFnwFDXeFq2p37yrv3c4yQbCo1VrdmCgbcR5duLguX6Z9dC499V-UtbN7IRqua5PbslZVoe07ZYC0XPFbKjmYCzTVs7XTr0psTBPibl_2nbqmwEhdhVKk7GbmhbJf8fE86ZQNRcemAApt2Lz0ZEQxGrZmXkAgD54u97H6hLIZCP1jg',
-  },
-  {
-    domain: '.wix.com',
-    expiry: 1636281174,
-    httpOnly: false,
-    name: '__utmb',
-    path: '/',
-    secure: false,
-    value: '248670552.1.10.1636279374',
-  },
-  {
-    domain: '.wix.com',
-    expiry: 1667815331,
-    httpOnly: false,
-    name: '_pxvid',
-    path: '/',
-    sameSite: 'Lax',
-    secure: false,
-    value: 'c6a03d57-3fb1-11ec-bb95-456f6968754a',
+    value: '1636619065|FXwF1QQn6rmy',
   },
 ];
 
@@ -241,6 +150,7 @@ const build = async (builderScript, builderComponents) => {
 
   const login = async () => {
     await driver.get(builderUrl);
+    //const newCookies = await driver.manage().getCookies();
     await loginWithCookies();
     await driver.get(builderUrl);
     console.log('logged in..');
@@ -261,9 +171,11 @@ const build = async (builderScript, builderComponents) => {
   try {
     await login();
 
-    await sleep(3000);
+    await sleep(5000);
 
     await selectFrame();
+
+    await sleep(5000);
 
     await executeScript(builderScript, builderComponents);
   } catch (error) {
@@ -273,15 +185,66 @@ const build = async (builderScript, builderComponents) => {
   }
 };
 
+const uploadImage = async (image) => {
+  try {
+    const { data } = await axios.post(
+      'https://bo.wix.com/site-migration-site-builder/uploadImages?userId=a09dceff-e613-41a3-8cd1-e1b185fb0844&metasiteId=8d508b47-711c-4f28-b08a-51b1b6022725',
+      [image],
+      {
+        headers: {
+          authorization: 'f11f94f6-ba55-4d52-84a7-b42ce92a1ac1',
+          'Content-Type': 'application/json',
+        },
+      }
+    );
+    return data;
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+const createImageForBuilder = async (image) => {
+  const imageWixUrl = (
+    await uploadImage({
+      imageName: image.name,
+      imageUrl: image.src,
+    })
+  )[0]?.fileName;
+
+  return {
+    componentType: 'wysiwyg.viewer.components.WPhoto',
+    style: 'wp2',
+    data: {
+      width: parseInt(image.width),
+      height: parseInt(image.height),
+      alt: image.alt,
+      name: image.name,
+      uri: imageWixUrl,
+      type: 'Image',
+      description: '',
+    },
+    layout: {
+      width: parseInt(image.width),
+      height: parseInt(image.height),
+      x: parseInt(image.x),
+      y: parseInt(image.y),
+      rotationInDegrees: 0,
+      scale: 1,
+      fixedPosition: false,
+      anchors: [],
+    },
+    props: 'WPhotoProperties',
+  };
+};
+
 const createButtonForBuilder = (button) => {
   const buttonStyle = button.style;
-
   return {
     componentType: 'wixui.StylableButton',
     style: {
       style: {
         properties: {
-          '$st-css': `$st-css": ":import{\n    -st-from: 'wix-ui-santa/index.st.css';\n    -st-named: StylableButton\n}\n.root{\n    -st-extends: StylableButton;\n    transition: all 0.2s ease, visibility 0s;\n    border-radius: ${buttonStyle.borderRadius};\n    background: ${buttonStyle.backgroundColor};\n    border: ${buttonStyle.border}\n}\n.root:hover{\n    border: 0px solid rgb(0,0,0);\n    background: ${buttonStyle.hover.backgroundColor}\n}\n.root:hover::label{\n    color: value(site_1_5)\n}\n.root:disabled{\n    background: #E2E2E2\n}\n.root:disabled::label{\n    color: #8F8F8F\n}\n.root:disabled::icon{\n    fill: #8F8F8F\n}\n.root::container{\n    transition: inherit\n}\n.root::label{\n    transition: inherit;\n    margin: 0px 4px 0px 0px;\n    letter-spacing: 0.1em;\n    color: value(site_1_1);\n    font-size: ${buttonStyle.fontSize};\n    font-weight: normal;\n    font-style: normal;\n    font-family: futura-lt-w01-book,futura-lt-w05-book,sans-serif\n}\n.root::icon{\n    transition: inherit;\n    width: 10px;\n    height: 10px;\n    margin: 0px 0px 0px 4px;\n    fill: value(site_1_1);\n    display: none\n}\n.root:hover::icon{\n    fill: value(site_1_5)\n}`,
+          '$st-css': `:import{\n    -st-from: 'wix-ui-santa/index.st.css';\n    -st-named: StylableButton\n}\n.root{\n    -st-extends: StylableButton;\n    transition: all 0.2s ease, visibility 0s;\n    border-radius: ${buttonStyle.borderRadius};\n    background: ${buttonStyle.backgroundColor};\n    border: ${buttonStyle.border}\n}\n.root:hover{\n    border: 0px solid rgb(0,0,0);\n    background: ${buttonStyle.hover.backgroundColor}\n}\n.root:hover::label{\n    color: value(site_1_5)\n}\n.root:disabled{\n    background: #E2E2E2\n}\n.root:disabled::label{\n    color: #8F8F8F\n}\n.root:disabled::icon{\n    fill: #8F8F8F\n}\n.root::container{\n    transition: inherit\n}\n.root::label{\n    transition: inherit;\n    margin: 0px 4px 0px 0px;\n    letter-spacing: 0.1em;\n    color: ${buttonStyle.color};\n    font-size: ${buttonStyle.fontSize};\n    font-weight: normal;\n    font-style: normal;\n    }\n.root::icon{\n    transition: inherit;\n    width: 10px;\n    height: 10px;\n    margin: 0px 0px 0px 4px;\n    fill: value(site_1_1);\n    display: none\n}\n.root:hover::icon{\n    fill: value(site_1_5)\n}`,
         },
         groups: {},
         propertiesSource: {
@@ -439,26 +402,18 @@ const createTextForBuilder = (text) => ({
 });
 
 const createComponentsForBuilder = (builderJSON) =>
-  builderJSON.map((item) =>
+  builderJSON.map(async (item) =>
     item.type === 'button'
       ? createButtonForBuilder(item)
       : item.type === 'text'
       ? createTextForBuilder(item)
+      : item.type === 'img'
+      ? await createImageForBuilder(item)
       : null
   );
 
-// const createExecutableScript = (component) => {
-//   documentServices.components.add({ id: 'c1dmp', type: 'DESKTOP' }, component);
-// };
-
 export const runBuilder = async (builderJSON) => {
   console.log('builder has started..');
-
-  // await build(
-  //   createExecutableScript(createComponentsForBuilder(builderJSON.components))
-  // );
-
-  //console.log(builderJSON);
 
   const components = createComponentsForBuilder(builderJSON.components);
 
