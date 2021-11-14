@@ -1,62 +1,28 @@
-import { Builder, By, Key, until } from 'selenium-webdriver';
+import { Builder, By } from 'selenium-webdriver';
 import { Options } from 'selenium-webdriver/chrome.js';
+import {
+  textClasses,
+  buttonClasses,
+  tagsToSearch,
+  builderElementType,
+  textTags,
+  imageTags,
+  linkTags,
+  buttonsTags,
+  hoverCssAttributes,
+  textCssAttributes,
+  nonTextCssAttributes,
+  imageAttributes,
+  linkAttributes,
+} from '../constants.js';
 
 const opt = new Options();
-//opt.headless();
+opt.headless();
 const driver = await new Builder()
   .forBrowser('chrome')
   .setChromeOptions(opt)
   .build();
 const actions = driver.actions({ async: true });
-
-const textClasses = ['body', 'title'];
-//const buttonClasses = [];
-//const textClasses = [];
-//const tagsToSearch = [];
-const buttonClasses = ['linkButton'];
-
-const tagsToSearch = ['img'];
-//const tagsToSearch = ['img', 'a', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'p'];
-
-const builderElementType = 'pagepadding';
-
-const textTags = ['div'];
-const linkTags = ['a'];
-const buttonsTags = ['a'];
-const imageTags = ['img'];
-
-const hoverCssAttributes = ['backgroundColor'];
-
-const nonTextCssAttributes = [
-  'backgroundOpacity',
-  'backgroundColor',
-  'backgroundImage',
-  'borderColor',
-  'borderWidth',
-  'borderRadius',
-  'borderStyle',
-  'shadow',
-  'background',
-  'color',
-  'fontFamily',
-  'fontSize',
-  'border',
-];
-
-const textCssAttributes = [
-  'color',
-  'font-size',
-  'font-family',
-  'font-weight',
-  'font-style',
-  'text-align',
-  'line-height',
-  'text-decoration-line',
-];
-
-const imageAttributes = ['src', 'name', 'alt', 'width', 'height'];
-
-const linkAttributes = ['href'];
 
 const convertArrayToObj = (array) => Object.assign({}, ...array);
 
@@ -97,7 +63,6 @@ const getElementAttributes = async (element, elementStyle) => {
       .replaceAll(/ class="[A-Za-z0-9]*"/g, '')
       .replaceAll(/<h[1-6]>/g, '')
       .replaceAll(/<\/h[1-6]>/g, '');
-
     const domElement = `<${elementTagName} style="${textAttributeStyle}">${childDomElements}<${elementTagName}/>`;
     return domElement.replace(/\s\s+/g, ' ');
   };
@@ -162,7 +127,6 @@ const buildElementObject = async (element) => {
     element,
     elementCssAttributes
   );
-
   return elementAttributes;
 };
 

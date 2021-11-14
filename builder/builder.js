@@ -1,4 +1,4 @@
-import { Builder, By, Key, until } from 'selenium-webdriver';
+import { Builder, By } from 'selenium-webdriver';
 import { sleep } from '../helpers.js';
 import { USER_ID, META_SITE_ID } from '../constants.js';
 import axios from 'axios';

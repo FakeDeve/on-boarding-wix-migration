@@ -14,7 +14,5 @@ app.get('/', async (req, res) => {
 });
 
 app.listen(port, async () => {
-  const builderJSON = await runScrapper('http://neurosymptomsnew.kk5.org/');
-  await runBuilder(builderJSON);
   console.log(`Node.js web server is running really fast at port ${port}..`);
 });
